@@ -1,94 +1,72 @@
-var library = {
-  tracks: { t01: { id: "t01",
-                   name: "Code Monkey",
-                   artist: "Jonathan Coulton",
-                   album: "Thing a Week Three" },
-            t02: { id: "t02",
-                   name: "Model View Controller",
-                   artist: "James Dempsey",
-                   album: "WWDC 2003"},
-            t03: { id: "t03",
-                   name: "Four Thirty-Three",
-                   artist: "John Cage",
-                   album: "Woodstock 1952"}
-          },
-  playlists: { p01: { id: "p01",
-                      name: "Coding Music",
-                      tracks: ["t01", "t02"]
-                    },
-               p02: { id: "p02",
-                      name: "Other Playlist",
-                      tracks: ["t03"]
-                    }
-             }
+function library(name, creator) {
+  this.name = name;
+  this.creator = creator;
+  this.playlists = [];
 }
 
-// FUNCTIONS TO IMPLEMENT:
-
-// prints a list of all playlists, in the form:
-// p01: Coding Music - 2 tracks
-// p02: Other Playlist - 1 tracks
-
-var printPlaylists = function () {
-
+function playlist(name) {
+  this.name = name;
+  this.tracks = [];
+  this.overallRating = 0;
+  this.totalDuration = 0;
 }
 
-
-// prints a list of all tracks, in the form:
-// t01: Code Monkey by Jonathan Coulton (Thing a Week Three)
-// t02: Model View Controller by James Dempsey (WWDC 2003)
-// t03: Four Thirty-Three by John Cage (Woodstock 1952)
-
-var printTracks = function () {
-
+function track(title, rating, length) {
+    this.title = title;
+    this.rating = rating;
+    this.length = length;
 }
 
-
-// prints a list of tracks for a given playlist, in the form:
-// p01: Coding Music - 2 tracks
-// t01: Code Monkey by Jonathan Coulton (Thing a Week Three)
-// t02: Model View Controller by James Dempsey (WWDC 2003)
-
-var printPlaylist = function (playlistId) {
-
+library.prototype.addplaylist = function (createplaylist) {
+  this.playlists.push(createplaylist);
 }
 
-
-// adds an existing track to an existing playlist
-
-var addTrackToPlaylist = function (trackId, playlistId) {
-
+playlist.prototype.addtrack = function (createtrack) {
+  this.tracks.push(createtrack);
 }
 
-
-// generates a unique id
-// (use this for addTrack and addPlaylist)
-
-var uid = function() {
-  return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+playlist.prototype.rating = function () {
+  var total = 0;
+  for (var i = 0; i < this.tracks.length; i += 1) {
+    total += (this.tracks[i].rating);
+  }
+  this.overallRating = (total / this.tracks.length);
 }
 
-
-// adds a track to the library
-
-var addTrack = function (name, artist, album) {
-
+playlist.prototype.duration = function () {
+  var total = 0;
+  for (var i = 0; i < this.tracks.length; i += 1) {
+    total += (this.tracks[i].length);
+  }
+  this.totalDuration = (total);
 }
 
+const mymusiclib = new library('Thats what I like', 'Bruno Mars');
 
-// adds a playlist to the library
+const p1 = new playlist('24K Magic');
+const p2 = new playlist('Unorthodox Jukebox');
 
-var addPlaylist = function (name) {
+const t1 = new track('Versace on the Floor', 5, 421);
+const t2 = new track('Locked out of Heaven', 3, 353);
+const t3 = new track('Count on Me', 4, 314);
+const t4 = new track('Gorilla', 2, 404);
+const t5 = new track('Treasure', 4, 258);
+const t6 = new track ('Grenade', 5, 342);
 
-}
+p1.addtrack(t1);
+p1.addtrack(t2);
+p1.addtrack(t3);
 
+p2.addtrack(t4);
+p2.addtrack(t5);
+p2.addtrack(t6);
 
-// STRETCH:
-// given a query string string, prints a list of tracks
-// where the name, artist or album contains the query string (case insensitive)
-// tip: use "string".search("tri")
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/search
+p1.findRating();
+p2.findRating();
 
-var printSearchResults = function(query) {
+p1.findDuration();
+p2.findDuration();
 
-}
+mymusiclib.addplaylist(p1);
+mymusiclib.addplaylist(p2);
+
