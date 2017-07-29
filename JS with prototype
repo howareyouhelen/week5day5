@@ -61,12 +61,13 @@ p2.addtrack(t4);
 p2.addtrack(t5);
 p2.addtrack(t6);
 
-p1.findRating();
-p2.findRating();
+p1.rating();
+p2.rating();
 
-p1.findDuration();
-p2.findDuration();
+p1.duration();
+p2.duration();
 
 mymusiclib.addplaylist(p1);
 mymusiclib.addplaylist(p2);
 
+console.log (mymusiclib);
